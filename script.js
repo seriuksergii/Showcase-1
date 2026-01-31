@@ -31,6 +31,7 @@
 
 (function () {
   const track = document.getElementById("hero-track");
+  const trackWrap = track ? track.parentElement : null;
   const dotsContainer = document.getElementById("hero-dots");
   const prevBtn = document.querySelector(".hero__btn--prev");
   const nextBtn = document.querySelector(".hero__btn--next");
@@ -40,8 +41,7 @@
   let currentSlide = 0;
 
   function getSlideWidth() {
-    const wrap = track.parentElement;
-    return wrap ? wrap.offsetWidth : 0;
+    return trackWrap ? trackWrap.offsetWidth : 0;
   }
 
   function updateSlider() {
@@ -76,6 +76,26 @@
 
   if (prevBtn) prevBtn.addEventListener("click", function () { goTo(currentSlide - 1); });
   if (nextBtn) nextBtn.addEventListener("click", function () { goTo(currentSlide + 1); });
+
+  if (trackWrap) {
+    var touchStartX = 0;
+    var touchEndX = 0;
+    var minSwipe = 50;
+
+    trackWrap.addEventListener("touchstart", function (e) {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    trackWrap.addEventListener("touchend", function (e) {
+      touchEndX = e.changedTouches[0].screenX;
+      var diff = touchStartX - touchEndX;
+      if (diff > minSwipe) {
+        goTo(currentSlide + 1);
+      } else if (diff < -minSwipe) {
+        goTo(currentSlide - 1);
+      }
+    }, { passive: true });
+  }
 
   var autoplayInterval = setInterval(function () {
     goTo(currentSlide + 1);
