@@ -18,8 +18,13 @@ body {
   min-height: 100vh;
   font-family: "Inter", sans-serif;
   color: var(--text);
-  background: linear-gradient(145deg, var(--bg-from) 0%, var(--bg-via) 50%, var(--bg-to) 100%);
+  background:
+    linear-gradient(180deg, rgba(20, 18, 16, 0.88) 0%, rgba(26, 22, 20, 0.92) 50%, rgba(18, 16, 14, 0.9) 100%),
+    url("https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=1920");
+  background-size: cover;
+  background-position: center;
   background-attachment: fixed;
+  background-repeat: no-repeat;
   position: relative;
   overflow-x: hidden;
 }
